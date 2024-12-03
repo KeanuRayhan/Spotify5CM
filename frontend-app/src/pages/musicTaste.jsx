@@ -62,7 +62,7 @@ const MusicTaste = () => {
       <footer className="bg-gray-800 text-white py-8">
         <div className="container mx-auto flex flex-col md:flex-row items-center justify-between text-center md:text-left">
           <div className="mx-auto md:mx-0 w-36">
-            <img src="/src/img/Spotify_Full_Logo_RGB_Green.png" alt="Spotify Logo Green" />
+            <img src="/src/assets/img/Spotify_Full_Logo_RGB_Green.png" alt="Spotify Logo Green" />
           </div>
           <div className="mt-4 md:mt-0">
             <p>© 2024 Spotify5CM by Kelompok 5CM. All Rights Reserved</p>
