@@ -12,6 +12,7 @@ import Test from './pages/test'
 import Home from './pages/Home'
 import ArtistPopularity from './pages/ArtistPopularity';
 import MatchTasteResult from './pages/MatchTasteResult';
+import MusicTaste from './pages/musicTaste';
 
 function App() {
   return (
@@ -21,9 +22,10 @@ function App() {
 
       <Routes>
         <Route path='/test' element={<Test />} />
-        <Route path='/home' element={<Home />} />
+        <Route path='/' element={<Home />} />
         <Route path='/artist-popularity' element={<ArtistPopularity />} />
-        <Route path='/match-taste-result' element={<MatchTasteResult />}/>
+        <Route path='/music-taste' element={<MusicTaste />} />
+        <Route path='/match-taste-result' element={<MatchTasteResult />} />
       </Routes>
 
       <Footer />
