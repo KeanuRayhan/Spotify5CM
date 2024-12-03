@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Music Taste Matching</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body class="bg-gray-100 font-sans">
+   <!-- Navbar -->
+   <header class="bg-white shadow">
+        <div class="container mx-auto px-4 py-4 flex items-center justify-between sm:py-2">
+            <!-- Logo -->
+            <div class="text-lg font-bold text-purple-600">SPOTIFY5CM</div>
+
+            <!-- Hamburger Icon -->
+            <button 
+                id="hamburgerButton" 
+                class="md:hidden text-purple-600 focus:outline-none"
+                aria-label="Toggle Navigation"
+            >
+                <!-- Icon -->
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                </svg>
+            </button>
+
+            <!-- Navigation Menu -->
+            <nav 
+                id="navbarMenu" 
+                class="hidden flex flex-col md:flex md:flex-row md:space-x-4 absolute md:static top-16 left-0 w-full md:w-auto bg-white shadow-lg md:shadow-none px-4 py-4 md:px-0 space-y-4 md:space-y-0 z-10"
+            >
+                <a href="#" class="font-bold text-gray-400 hover:text-purple-900">Home</a>
+                <a href="#" class="font-bold text-gray-400 hover:text-purple-900">Top Popular Artist</a>
+                <a href="#" class="font-bold text-gray-400 hover:text-purple-900">Music Taste Matching</a>
+            </nav>
+        </div>
+    </header>
+
+  <!-- Main Section -->
+  <main class="bg-slate-200 margincontainer mx-auto px-20 py-16 text-center">
+    <h2 class="text-3xl font-bold text-purple-700">Taste Matching Analytics</h2>
+    <p class="text-gray-600 mt-4">
+      🎵 Seberapa Mirip Selera Musik Kamu dengan Temanmu? Temukan sekarang dengan fitur Music Match Taste Analytics!
+      Lihat persentase kesamaan dan ketahui lagu-lagu yang kalian sama-sama nikmati. Cocok buat nambah playlist seru! 🎶
+    </p>
+    <div class="mt-12 max-w-md  mx-auto bg-green-500 p-8 rounded-3xl shadow-2xl">
+      <h3 class="text-2xl font-bold text-lime-300 mb-6">LET'S MATCH</h3>
+      <form>
+        <input type="text" placeholder="Your Spotify ID" class="w-full mb-4 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-700">
+        <input type="text" placeholder="Other Spotify ID" class="mt-5 w-full mb-6 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-700">
+        <button type="submit" class="mt-4 w-fit bg-purple-700 text-white py-2 px-4 rounded-3xl hover:bg-purple-600 shadow-2xl">Start Matching</button>
+      </form>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-gray-800 text-white py-8">
+    <div class="container mx-auto flex flex-col md:flex-row items-center justify-between text-center md:text-left">
+      <div class="mx-auto md:mx-0 w-36">
+        <img src="src/img/Spotify_Full_Logo_RGB_Green.png" alt="Spotify Logo Green">
+      </div>
+      <div class="mt-4 md:mt-0">
+        <p>© 2024 Spotify5CM by Kelompok 5CM. All Rights Reserved</p>
+        <div class="mt-4 space-x-4">
+          <a href="#" class="text-gray-400 hover:text-white">Cookies</a>
+          <a href="#" class="text-gray-400 hover:text-white">Privacy and Policy</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Script Hamburger Navbar -->
+  <script>
+    // Toggle hamburger menu visibility
+    const hamburgerButton = document.getElementById('hamburgerButton');
+    const navbarMenu = document.getElementById('navbarMenu');
+
+    hamburgerButton.addEventListener('click', () => {
+        navbarMenu.classList.toggle('hidden');
+    });
+  </script>
+
+</body>
+
+</html>
