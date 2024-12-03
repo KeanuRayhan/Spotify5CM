@@ -21,9 +21,9 @@ function App() {
 
       <Routes>
         <Route path='/test' element={<Test />} />
-        <Route path='/' element={<Home />} />
+        <Route path='/home' element={<Home />} />
         <Route path='/artist-popularity' element={<ArtistPopularity />} />
-        <Route path='/match-taste-result' element={<MatchTasteResult />} />
+        <Route path='/match-taste-result' element={<MatchTasteResult />}/>
       </Routes>
 
       <Footer />
