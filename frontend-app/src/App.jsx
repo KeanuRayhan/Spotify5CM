@@ -21,8 +21,7 @@ function App() {
       <Navbar />
 
       <Routes>
-        <Route path='/test' element={<Test />} />
-        <Route path='/' element={<Home />} />
+        <Route path='/home' element={<Home />} />
         <Route path='/artist-popularity' element={<ArtistPopularity />} />
         <Route path='/music-taste' element={<MusicTaste />} />
         <Route path='/match-taste-result' element={<MatchTasteResult />} />
