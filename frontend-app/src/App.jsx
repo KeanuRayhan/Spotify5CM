@@ -10,6 +10,7 @@ import Footer from './components/Footer'
 import Test from './pages/test'
 import Home from './pages/Home'
 import ArtistPopularity from './pages/ArtistPopularity';
+import MusicTaste from './pages/musicTaste';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route path='/test' element={<Test />} />
         <Route path='/' element={<Home />} />
         <Route path='/artist-popularity' element={<ArtistPopularity />} />
+        <Route path='/music-taste' element={<MusicTaste />} />
       </Routes>
 
       <Footer />
