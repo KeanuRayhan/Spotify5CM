@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artist Popularity</title>
+    <link rel="stylesheet" href="output.css"></link>
+</head>
+
+<body>
+    <header class="bg-white drop-shadow-xl">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+          <div class="flex items-center space-x-2">
+            <img src="/images/5cm.jpg" alt="Logo" class="w-10 h-10">
+          </div>
+          <nav class="space-x-8">
+            <a href="#" class="text-gray-600 hover:text-purple-700">Home</a>
+            <a href="#" class="text-purple-700 font-semibold">Top Popular Artist</a>
+            <a href="#" class="text-gray-600 hover:text-purple-700">Music Taste Matching</a>
+          </nav>
+        </div>
+      </header>
+
+      <main>
+        <div class=" flex">
+          <!-- Bagian Kiri dengan Background Ungu -->
+          <div class="bg-purple-600 container w-1/2 p-3">
+            <p>You can pick artist popularity by region or country—no need to stick to regions when choosing a country.</p>
+            <div class="flex space-x-4 mt-4">
+              <div class="w-1/2">
+                <label for="continent" class="block text-sm font-bold text-black">Continent</label>
+                <select id="continent" class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-indigo-600">
+                  <option value="Asia">Asia</option>
+                  <option value="Europe">Europe</option>
+                  <option value="America">America</option>
+                  <option value="Africa">Africa</option>
+                </select>
+              </div>
+              <div class="w-1/2">
+                <label for="country" class="block text-sm font-bold text-black">Country</label>
+                <select id="country" class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-indigo-600">
+                  <option value="USA">USA</option>
+                  <option value="UK">UK</option>
+                  <option value="Brazil">Brazil</option>
+                  <option value="Indonesia">Indonesia</option>
+                </select>
+              </div>
+            </div>
+          </div>          
+          <!-- Bagian Kanan (gambar) -->
+          <div class="bg-purple-600 container w-1/2 p-4">
+            <!-- <img src="/images/foto eca 2.jpg" alt="Image" class="w-full rounded-lg shadow-lg"> -->
+            <div class="p-8">  
+              <p>Discover the top artists trending across different countries and regions! See who's making waves and topping the charts around the world.</p>
+            </div>  
+          </div>
+        </div>
+        <section class="bg-slate-200 flex justify-center items-center py-8">
+          <table class="table-auto w-3/4 max-w-4xl mt-4 border-collapse bg-white shadow-lg rounded-lg">
+            <thead class="bg-purple-600 text-black">
+              <tr>
+                <th class="px-4 py-2 border border-gray-300">No</th>
+                <th class="px-4 py-2 border border-gray-300">Artist</th>
+                <th class="px-4 py-2 border border-gray-300">Monthly Listeners</th>
+                <th class="px-4 py-2 border border-gray-300">Popularity</th>
+                <th class="px-4 py-2 border border-gray-300">Artist Score</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="bg-purple-800">
+                <td class="px-4 py-2 border border-gray-300">1</td>
+                <td class="px-4 py-2 border border-gray-300">Bruno Mars</td>
+                <td class="px-4 py-2 border border-gray-300">23423423432</td>
+                <td class="px-4 py-2 border border-gray-300">80</td>
+                <td class="px-4 py-2 border border-gray-300">100</td>
+              </tr>
+              <tr class="bg-purple-600">
+                <td class="px-4 py-2 border border-gray-300">2</td>
+                <td class="px-4 py-2 border border-gray-300">Ariana Grande</td>
+                <td class="px-4 py-2 border border-gray-300">24234535</td>
+                <td class="px-4 py-2 border border-gray-300">78</td>
+                <td class="px-4 py-2 border border-gray-300">89,90</td>
+              </tr>
+              <tr class="bg-purple-800">
+                <td class="px-4 py-2 border border-gray-300">3</td>
+                <td class="px-4 py-2 border border-gray-300">Ilham</td>
+                <td class="px-4 py-2 border border-gray-300">123123123</td>
+                <td class="px-4 py-2 border border-gray-300">88</td>
+                <td class="px-4 py-2 border border-gray-300">77</td>
+              </tr>
+              <tr class="bg-purple-600">
+                <td class="px-4 py-2 border border-gray-300">4</td>
+                <td class="px-4 py-2 border border-gray-300">Tulus</td>
+                <td class="px-4 py-2 border border-gray-300">213342</td>
+                <td class="px-4 py-2 border border-gray-300">99</td>
+                <td class="px-4 py-2 border border-gray-300">89</td>
+              </tr>
+              <tr class="bg-purple-800">
+                <td class="px-4 py-2 border border-gray-300">5</td>
+                <td class="px-4 py-2 border border-gray-300">Pamungkas</td>
+                <td class="px-4 py-2 border border-gray-300">213332423</td>
+                <td class="px-4 py-2 border border-gray-300">90</td>
+                <td class="px-4 py-2 border border-gray-300">88</td>
+              </tr>
+              <tr class="bg-purple-800">
+                <td class="px-4 py-2 border border-gray-300">1</td>
+                <td class="px-4 py-2 border border-gray-300">Bruno Mars</td>
+                <td class="px-4 py-2 border border-gray-300">23423423432</td>
+                <td class="px-4 py-2 border border-gray-300">80</td>
+                <td class="px-4 py-2 border border-gray-300">100</td>
+              </tr>
+              <tr class="bg-purple-600">
+                <td class="px-4 py-2 border border-gray-300">2</td>
+                <td class="px-4 py-2 border border-gray-300">Ariana Grande</td>
+                <td class="px-4 py-2 border border-gray-300">24234535</td>
+                <td class="px-4 py-2 border border-gray-300">78</td>
+                <td class="px-4 py-2 border border-gray-300">89,90</td>
+              </tr>
+              <tr class="bg-purple-800">
+                <td class="px-4 py-2 border border-gray-300">3</td>
+                <td class="px-4 py-2 border border-gray-300">Ilham</td>
+                <td class="px-4 py-2 border border-gray-300">123123123</td>
+                <td class="px-4 py-2 border border-gray-300">88</td>
+                <td class="px-4 py-2 border border-gray-300">77</td>
+              </tr>
+              <tr class="bg-purple-600">
+                <td class="px-4 py-2 border border-gray-300">4</td>
+                <td class="px-4 py-2 border border-gray-300">Tulus</td>
+                <td class="px-4 py-2 border border-gray-300">213342</td>
+                <td class="px-4 py-2 border border-gray-300">99</td>
+                <td class="px-4 py-2 border border-gray-300">89</td>
+              </tr>
+              <tr class="bg-purple-800">
+                <td class="px-4 py-2 border border-gray-300">5</td>
+                <td class="px-4 py-2 border border-gray-300">Pamungkas</td>
+                <td class="px-4 py-2 border border-gray-300">213332423</td>
+                <td class="px-4 py-2 border border-gray-300">90</td>
+                <td class="px-4 py-2 border border-gray-300">88</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>        
+      </main>          
+
+      <footer class="bg-gray-800 text-white py-6">
+        <div class="container mx-auto px-4 text-center">
+          <p class="text-sm">© 2024 SpotifySCM by Kelompok 5CM. All Right Reserved</p>
+          <div class="flex justify-center space-x-4 mt-4">
+            <a href="#" class="text-gray-400 hover:text-white">Cookies</a>
+            <a href="#" class="text-gray-400 hover:text-white">Privacy and Policy</a>
+            <a href="#" class="text-gray-400 hover:text-white">Terms</a>
+          </div>
+        </div>
+      </footer>
+</body>
+
+</html>
