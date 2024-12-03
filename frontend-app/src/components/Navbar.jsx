@@ -44,13 +44,13 @@ export default function Navbar() {
                         isNavbarVisible ? "flex" : "hidden"
                         } flex-col md:flex md:flex-row md:space-x-4 absolute md:static top-16 left-0 w-full md:w-auto bg-white shadow-lg md:shadow-none px-4 py-4 md:px-0 space-y-4 md:space-y-0 z-10`}
                     >
-                        <a href="#" className="font-bold text-gray-400 hover:text-purple-900">
+                        <a href="#" className="font-bold text-gray-400 hover:text-purple-900 px-3">
                             Home
                         </a>
-                        <a href="#" className="font-bold text-gray-400 hover:text-purple-900">
+                        <a href="#" className="font-bold text-gray-400 hover:text-purple-900 px-3">
                             Top Popular Artist
                         </a>
-                        <a href="#" className="font-bold text-gray-400 hover:text-purple-900">
+                        <a href="#" className="font-bold text-gray-400 hover:text-purple-900 px-3">
                             Music Taste Matching
                         </a>
                     </nav>

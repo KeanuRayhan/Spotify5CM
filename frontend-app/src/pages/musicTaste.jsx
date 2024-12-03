@@ -22,7 +22,7 @@ const MusicTaste = () => {
             placeholder="Other Spotify ID"
             className="mt-5 w-full mb-6 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-700"
           />
-          <button type="submit" className="mt-4 w-fit bg-purple-700 text-white py-2 px-4 rounded-3xl hover:bg-purple-600 shadow-2xl">Start Matching</button>
+          <button type="submit" className=" font-bold mt-4 w-fit bg-purple-700 text-white py-2 px-4 rounded-3xl hover:bg-purple-600 shadow-2xl">Start Matching</button>
         </form>
       </div>
     </main>
