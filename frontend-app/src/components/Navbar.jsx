@@ -13,7 +13,8 @@ export default function Navbar() {
             <header className="bg-white drop-shadow-xl">
                 <div className="container mx-auto px-4 py-4 flex items-center justify-between sm:py-2">
                     {/* Logo */}
-                    <div className="text-lg font-bold text-purple-600">SPOTIFY5CM</div>
+                    <img className = "w-20" src="./src/assets/img/5cm.jpg" alt="Logo" />
+                    {/* <div className="text-lg font-bold text-purple-600">SPOTIFY5CM</div> */}
 
                     {/* Hamburger Icon */}
                     <button

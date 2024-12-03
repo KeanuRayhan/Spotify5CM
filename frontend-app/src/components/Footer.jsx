@@ -7,11 +7,12 @@ export default function Footer() {
                 <div className="container mx-auto flex flex-col md:flex-row items-center justify-between text-center md:text-left">
                     <div className="mx-auto md:mx-0 w-36">
                         <img
+                            className='ml-4'
                             src={SpotifyGreen}
                             alt="Spotify Logo Green"
                         />
                     </div>
-                    <div className="mt-4 md:mt-0">
+                    <div className="mt-4 mr-4 md:mt-0">
                         <p>© 2024 Spotify5CM by Kelompok 5CM. All Rights Reserved</p>
                         <div className="mt-4 space-x-4">
                             <a href="#" className="text-gray-400 hover:text-white">
