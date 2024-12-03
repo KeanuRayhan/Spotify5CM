@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import Icon from '../assets/img/Icon.png';
 import MusicMatchImg from '../assets/img/music-match-taste.png';
@@ -8,6 +9,14 @@ import Rectangle2 from '../assets/img/Rectangle 2.png';
 import SpotifyBlack from '../assets/img/Spotify_Full_Logo_RGB_Black.png';
 
 export default function Home() {
+    const musicMatchRef = useRef(null);
+    const topPopularArtistRef = useRef(null);
+    const navigate = useNavigate();
+
+    const scrolltoSection = (ref) => {
+        ref.current.scrollIntoView({ behavior: 'smooth' });
+    };
+
     return (
         <div className="bg-gray-100 font-sans">
             {/* Hero Section */}
@@ -23,7 +32,10 @@ export default function Home() {
                             artists in various regions and see who has similar musical tastes
                             to you.
                         </p>
-                        <button className="bg-purple-900 text-white font-bold text-lg px-6 py-3 rounded-3xl hover:bg-purple-700">
+                        <button 
+                            className="bg-purple-900 text-white font-bold text-lg px-6 py-3 rounded-3xl hover:bg-purple-700"
+                            onClick={() => scrolltoSection(musicMatchRef)}
+                        >
                             Getting Started
                         </button>
                     </div>
@@ -39,7 +51,10 @@ export default function Home() {
 
             {/* Features Section */}
             {/* Music Taste Matching */}
-            <section className="bg-lime-400 flex flex-col lg:flex-row items-center shadow">
+            <section 
+                ref={musicMatchRef}
+                className="bg-lime-400 flex flex-col lg:flex-row items-center shadow"
+            >
                 <div className="flex-1 p-4 lg:p-8 self-center">
                     <img
                         className="mx-auto w-1/2 lg:w-auto"
@@ -62,13 +77,19 @@ export default function Home() {
             </section>
 
             {/* Top Popular Artist */}
-            <section className="bg-purple-400 flex flex-col-reverse lg:flex-row items-center shadow">
+            <section
+                ref={topPopularArtistRef} 
+                className="bg-purple-400 flex flex-col-reverse lg:flex-row items-center shadow"
+            >
                 <div className="flex-1 p-4 lg:p-8 text-center">
                     <h2 className="text-3xl lg:text-4xl font-bold text-purple-900 mb-4">Top Popular Artist</h2>
                     <p className="text-gray-900 text-base lg:text-lg mb-6">
                         Discover and know the popularity rankings of top artists from various countries and regions.
                     </p>
-                    <button className="bg-purple-900 text-white font-bold text-lg px-6 py-3 rounded-3xl hover:bg-purple-700">
+                    <button 
+                        className="bg-purple-900 text-white font-bold text-lg px-6 py-3 rounded-3xl hover:bg-purple-700"
+                        onClick={() => navigate('/artist-popularity')}
+                    >
                         Try Now
                     </button>
                 </div>
