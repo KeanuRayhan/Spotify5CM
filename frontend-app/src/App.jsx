@@ -4,7 +4,7 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 
-import Test from './pages/test'
+import Test from './pages/musicTaste'
 
 function App() {
   const [count, setCount] = useState(0)
