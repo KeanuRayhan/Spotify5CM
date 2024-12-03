@@ -70,7 +70,10 @@ export default function Home() {
                         Check how well your music tastes match those of other people and find
                         song recommendations that match your preferences!
                     </p>
-                    <button className="bg-purple-900 text-white font-bold text-lg px-6 py-3 rounded-3xl hover:bg-purple-700">
+                    <button 
+                        className="bg-purple-900 text-white font-bold text-lg px-6 py-3 rounded-3xl hover:bg-purple-700"
+                        onClick={() => navigate('/music-taste')}
+                    >
                         Try Now
                     </button>
                 </div>

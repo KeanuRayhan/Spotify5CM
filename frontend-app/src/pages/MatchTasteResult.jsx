@@ -1,4 +1,5 @@
 import React, {useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import Chart from "chart.js/auto";
 
 import Avatar from "../assets/img/avatar.png";
@@ -7,6 +8,8 @@ export default function MatchTasteResult() {
     const matchingPercentageRef = React.useRef(null);
     const genreChartUser1Ref = React.useRef(null);
     const genreChartUser2Ref = React.useRef(null);
+
+    const navigate = useNavigate();
 
     useEffect(() => {
         // Function to create charts
@@ -109,7 +112,10 @@ export default function MatchTasteResult() {
                     <p className="text-xl font-medium text-gray-900 mb-8">
                         You both have matching tastes in music
                     </p>
-                    <button className="bg-purple-900 text-white font-bold text-lg px-6 py-3 rounded-3xl hover:bg-purple-700 mb-12">
+                    <button 
+                        className="bg-purple-900 text-white font-bold text-lg px-6 py-3 rounded-3xl hover:bg-purple-700 mb-12"
+                        onClick={() => navigate("/music-taste")}    
+                    >
                         Try Another Match
                     </button>
 
@@ -118,10 +124,16 @@ export default function MatchTasteResult() {
                         <div className="w-2/5">
                             <h3 className="text-xl font-semibold text-purple-900 mb-4">rere.fps</h3>
                             <canvas ref={genreChartUser1Ref}></canvas>
+
+                            {/* KALO PIE CHART MAU PAKE GAMBAR */}
+                            {/* <img src="" alt="" /> */}
                         </div>
                         <div className="w-2/5">
                             <h3 className="text-xl font-semibold text-purple-900 mb-4">meureun</h3>
                             <canvas ref={genreChartUser2Ref}></canvas>
+
+                            {/* KALO PIE CHART MAU PAKE GAMBAR */}
+                            {/* <img src="" alt="" /> */}
                         </div>
                     </div>
 
