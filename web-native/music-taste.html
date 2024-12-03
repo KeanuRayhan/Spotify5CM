@@ -10,52 +10,56 @@
 </head>
 
 <body class="bg-gray-100 font-sans">
-   <!-- Navbar -->
-   <header class="bg-white drop-shadow-xl">
-        <div class="container mx-auto px-4 py-4 flex items-center justify-between sm:py-2">
-            <!-- Logo -->
-            <div class="text-lg font-bold text-purple-600">SPOTIFY5CM</div>
+  <!-- Navbar -->
+  <header class="bg-white drop-shadow-xl">
+    <div class="container mx-auto px-4 py-4 flex items-center justify-between sm:py-2">
+      <!-- Logo -->
+      <div class="text-lg font-bold text-purple-600">SPOTIFY5CM</div>
 
-            <!-- Hamburger Icon -->
-            <button 
-                id="hamburgerButton" 
-                class="md:hidden text-purple-600 focus:outline-none"
-                aria-label="Toggle Navigation"
-            >
-                <!-- Icon -->
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
-                </svg>
-            </button>
+      <!-- Hamburger Icon -->
+      <button id="hamburgerButton" class="md:hidden text-purple-600 focus:outline-none" aria-label="Toggle Navigation">
+        <!-- Icon -->
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+        </svg>
+      </button>
 
-            <!-- Navigation Menu -->
-            <nav 
-                id="navbarMenu" 
-                class="hidden flex flex-col md:flex md:flex-row md:space-x-4 absolute md:static top-16 left-0 w-full md:w-auto bg-white shadow-lg md:shadow-none px-4 py-4 md:px-0 space-y-4 md:space-y-0 z-10"
-            >
-                <a href="#" class="font-bold text-gray-400 hover:text-purple-900">Home</a>
-                <a href="#" class="font-bold text-gray-400 hover:text-purple-900">Top Popular Artist</a>
-                <a href="#" class="font-bold text-gray-400 hover:text-purple-900">Music Taste Matching</a>
-            </nav>
-        </div>
-    </header>
+      <!-- Navigation Menu -->
+      <nav id="navbarMenu" class="hidden flex flex-col md:flex md:flex-row md:space-x-4 absolute md:static top-16 left-0 w-full md:w-auto bg-white shadow-lg md:shadow-none px-4 py-4 md:px-0 space-y-4 md:space-y-0 z-10">
+        <a href="#" class="font-bold text-gray-400 hover:text-purple-900">Home</a>
+        <a href="#" class="font-bold text-gray-400 hover:text-purple-900">Top Popular Artist</a>
+        <a href="#" class="font-bold text-gray-400 hover:text-purple-900">Music Taste Matching</a>
+      </nav>
+    </div>
+  </header>
 
   <!-- Main Section -->
-  <main class="bg-slate-200 margincontainer mx-auto px-20 py-16 text-center">
+  <main class="bg-slate-200 mx-auto px-20 py-16 text-center">
     <h2 class="text-3xl font-bold text-purple-700">Taste Matching Analytics</h2>
     <p class="text-gray-600 mt-4">
-      🎵 Seberapa Mirip Selera Musik Kamu dengan Temanmu? Temukan sekarang dengan fitur Music Match Taste Analytics!
-      Lihat persentase kesamaan dan ketahui lagu-lagu yang kalian sama-sama nikmati. Cocok buat nambah playlist seru! 🎶
+      🎵 Seberapa Mirip Selera Musik Kamu dengan Temanmu? Temukan sekarang dengan fitur Music Match Taste Analytics! Lihat persentase kesamaan dan ketahui lagu-lagu yang kalian sama-sama nikmati. Cocok buat nambah playlist seru! 🎶
     </p>
-    <div class="mt-12 max-w-md  mx-auto bg-green-500 p-8 rounded-3xl shadow-2xl">
+    <div class="mt-12 max-w-md mx-auto bg-green-500 p-8 rounded-3xl shadow-2xl">
       <h3 class="text-2xl font-bold text-lime-300 mb-6">LET'S MATCH</h3>
       <form>
         <input type="text" placeholder="Your Spotify ID" class="w-full mb-4 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-700">
         <input type="text" placeholder="Other Spotify ID" class="mt-5 w-full mb-6 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-700">
-        <button type="submit" class="mt-4 w-fit bg-purple-700 text-white py-2 px-4 rounded-3xl hover:bg-purple-600 shadow-2xl">Start Matching</button>
+        <button type="button" class="mt-4 w-fit bg-purple-700 text-white py-2 px-4 rounded-3xl hover:bg-purple-600 shadow-2xl" onclick="openPopup()">Start Matching</button>
       </form>
     </div>
   </main>
+
+  <!-- Pop-up Section -->
+  <div id="popup" class="fixed inset-0 bg-black bg-opacity-50 hidden justify-center items-center">
+    <div class="bg-white p-4 rounded-lg max-w-md relative">
+      <button onclick="closePopup()" class="absolute top-2 right-2 text-3xl text-gray-500 hover:text-gray-700">&times;</button>
+      <h3 class="text-xl font-bold text-purple-600 mb-4">Matching Results</h3>
+      <p class="text-gray-600">Persentase kesamaan musik kamu dengan temanmu adalah <strong>85%</strong>.</p>
+      <div class="mt-4">
+        <button onclick="closePopup()" class="w-full bg-purple-700 text-white py-2 px-4 rounded-3xl hover:bg-purple-600 shadow-2xl">Close</button>
+      </div>
+    </div>
+  </div>
 
   <!-- Footer -->
   <footer class="bg-gray-800 text-white py-8">
@@ -80,10 +84,25 @@
     const navbarMenu = document.getElementById('navbarMenu');
 
     hamburgerButton.addEventListener('click', () => {
-        navbarMenu.classList.toggle('hidden');
+      navbarMenu.classList.toggle('hidden');
     });
-  </script>
 
+    // Pop-up toggle functions
+    function openPopup() {
+      document.getElementById('popup').classList.remove('hidden');
+    }
+
+    function closePopup() {
+      document.getElementById('popup').classList.add('hidden');
+    }
+
+    // Close the pop-up if the user clicks outside the content
+    window.onclick = function(event) {
+      if (event.target === document.getElementById('popup')) {
+        closePopup();
+      }
+    }
+  </script>
 </body>
 
 </html>
