@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spotify5CM</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-gray-100 font-sans">
+    <!-- Navbar -->
+    <header class="bg-white shadow">
+        <div class="container mx-auto px-4 py-4 flex items-center justify-between sm:py-2">
+            <!-- Logo -->
+            <div class="text-lg font-bold text-purple-600">SPOTIFY5CM</div>
+    
+            <!-- Hamburger Icon -->
+            <button 
+                id="hamburgerButton" 
+                class="md:hidden text-purple-600 focus:outline-none"
+                aria-label="Toggle Navigation"
+            >
+                <!-- Icon -->
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                </svg>
+            </button>
+    
+            <!-- Navigation Menu -->
+            <nav 
+                id="navbarMenu" 
+                class="hidden flex flex-col md:flex md:flex-row md:space-x-4 absolute md:static top-16 left-0 w-full md:w-auto bg-white shadow-lg md:shadow-none px-4 py-4 md:px-0 space-y-4 md:space-y-0 z-10"
+            >
+                <a href="#" class="font-bold text-gray-400 hover:text-purple-900">Home</a>
+                <a href="#" class="font-bold text-gray-400 hover:text-purple-900">Top Popular Artist</a>
+                <a href="#" class="font-bold text-gray-400 hover:text-purple-900">Music Taste Matching</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Match Result Section -->
+     <section class="bg-purple-100 py-12">
+        <div class="container mx-auto text-center">
+            <h1 class="text-4xl font-bold text-purple-900 mb-6 sm:text-3xl md:text-4xl">MATCH RESULT</h1>
+
+            <!-- Matching Percentage -->
+            <div class="flex justify-center items-center mb-8 space-x-8 sm:space-x-4">
+                <div class="w-1/4 sm:w-1/3">
+                    <img class="mx-auto w-52 rounded-full sm:w-40 md:w-52" src="/src/img/avatar.png" alt="User 1">
+                    <p class="mt-4 text-lg font-semibold sm:text-base">rere.fps</p>
+                </div>
+                <div class="w-1/4">
+                    <div class="relative">
+                        <canvas id="matchingPercentage"></canvas>
+                        <p id="percentageText" class="absolute inset-0 flex items-center justify-center text-3xl font-bold text-purple-900 sm:text-2xl"></p>
+                    </div>
+                </div>
+                <div class="w-1/4 sm:w-1/3">
+                    <img class="mx-auto w-52 rounded-full sm:w-40 md:w-52" src="/src/img/avatar.png" alt="User 2">
+                    <p class="mt-4 text-lg font-semibold sm:text-base">meureun</p>
+                </div>
+            </div>
+
+            <p class="text-xl font-medium text-gray-900 mb-8 sm:text-lg">
+                You both have matching tastes in music
+            </p>
+            <button class="bg-purple-900 text-white font-bold text-lg px-6 py-3 rounded-3xl hover:bg-purple-700 mb-12 sm:px-4 sm:py-2 sm:text-base">
+                Try Another Match
+            </button>
+
+            <!-- Genre Match -->
+            <div class="flex flex-row justify-around gap-8 mb-12 sm:flex-row sm:gap-4">
+                <div class="w-2/5">
+                    <h3 class="text-xl font-semibold text-purple-900 mb-4 sm:text-lg">rere.fps</h3>
+                    <!-- <img class="mx-auto" src="https://avatar.iran.liara.run/public/2" alt="Genre Match User 1" /> -->
+                    <canvas id="genreChartUser1"></canvas>
+                </div>
+                <div class="w-2/5">
+                    <h3 class="text-xl font-semibold text-purple-900 mb-4">meureun</h3>
+                    <!-- <img class="mx-auto" src="https://avatar.iran.liara.run/public/2" alt="Genre Match User 2" /> -->
+                    <canvas id="genreChartUser2"></canvas>
+                </div>
+            </div>
+
+            <!-- Recommended Songs Table -->
+            <p class="text-xl font-medium text-gray-900 mb-8 sm:text-lg">
+                Here Recommendation Songs for You
+            </p>
+            <div class="mx-auto overflow-x-auto max-w-screen-lg bg-white shadow rounded-lg">
+                <table class="table-auto w-full text-left text-white">
+                    <thead>
+                        <tr class="bg-indigo-950">
+                            <th class="px-4 py-2">No</th>
+                            <th class="px-4 py-2 w-1/2 sm:w-1/3">Track</th>
+                            <th class="px-4 py-2">Artist</th>
+                            <th class="px-4 py-2">Duration</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="bg-blue-950">
+                            <td class="px-4 py-2">1</td>
+                            <td class="px-4 py-2">
+                                <div class="flex items-center space-x-2">
+                                    <img class="w-12 h-12 rounded-lg" src="https://i.scdn.co/image/ab67616d00001e02ff9ca10b55ce82ae553c8228" alt="album-cover">
+                                    <span>Talking to the moon</span>
+                                </div>
+                            </td>
+                            <td class="px-4 py-2">Bruno Mars</td>
+                            <td class="px-4 py-2">02:15</td>
+                        </tr>
+                        <tr class="bg-indigo-950">
+                            <td class="px-4 py-2">2</td>
+                            <td class="px-4 py-2">
+                                <div class="flex items-center space-x-2">
+                                    <img class="w-12 h-12 rounded-lg" src="https://i.scdn.co/image/ab67616d00001e02ff9ca10b55ce82ae553c8228" alt="album-cover">
+                                    <span>Don't look back in anger</span>
+                                </div>
+                            </td>
+                            <td class="px-4 py-2">Oasis</td>
+                            <td class="px-4 py-2">03:33</td>
+                        </tr>
+                        <tr class="bg-blue-950">
+                            <td class="px-4 py-2">3</td>
+                            <td class="px-4 py-2">
+                                <div class="flex items-center space-x-2">
+                                    <img class="w-12 h-12 rounded-lg" src="https://i.scdn.co/image/ab67616d00001e02ff9ca10b55ce82ae553c8228" alt="album-cover">
+                                    <span>Bad Liar</span>
+                                </div>
+                            </td>
+                            <td class="px-4 py-2">Imagine Dragon</td>
+                            <td class="px-4 py-2">04:00</td>
+                        </tr>
+                        <tr class="bg-indigo-950">
+                            <td class="px-4 py-2">4</td>
+                            <td class="px-4 py-2">
+                                <div class="flex items-center space-x-2">
+                                    <img class="w-12 h-12 rounded-lg" src="https://i.scdn.co/image/ab67616d00001e02ff9ca10b55ce82ae553c8228" alt="album-cover">
+                                    <span>Wait a minute</span>
+                                </div>
+                            </td>
+                            <td class="px-4 py-2">Pamungkas</td>
+                            <td class="px-4 py-2">02:50</td>
+                        </tr>
+                        <tr class="bg-blue-950">
+                            <td class="px-4 py-2">5</td>
+                            <td class="px-4 py-2">
+                                <div class="flex items-center space-x-2">
+                                    <img class="w-12 h-12 rounded-lg" src="https://i.scdn.co/image/ab67616d00001e02ff9ca10b55ce82ae553c8228" alt="album-cover">
+                                    <span>Blinding Lights</span>
+                                </div>
+                            </td>
+                            <td class="px-4 py-2">The Weekend</td>
+                            <td class="px-4 py-2">03:38</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+     </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto flex flex-col md:flex-row items-center justify-between text-center md:text-left">
+          <div class="mx-auto md:mx-0 w-36">
+            <img src="src/img/Spotify_Full_Logo_RGB_Green.png" alt="Spotify Logo Green">
+          </div>
+          <div class="mt-4 md:mt-0">
+            <p>© 2024 Spotify5CM by Kelompok 5CM. All Rights Reserved</p>
+            <div class="mt-4 space-x-4">
+              <a href="#" class="text-gray-400 hover:text-white">Cookies</a>
+              <a href="#" class="text-gray-400 hover:text-white">Privacy and Policy</a>
+            </div>
+          </div>
+        </div>
+    </footer>
+
+    <!-- Script Hamburger Navbar -->
+    <script>
+        // Toggle hamburger menu visibility
+        const hamburgerButton = document.getElementById('hamburgerButton');
+        const navbarMenu = document.getElementById('navbarMenu');
+    
+        hamburgerButton.addEventListener('click', () => {
+            navbarMenu.classList.toggle('hidden');
+        });
+    </script>
+
+    <!-- Script Chart.js -->
+    <script>
+        // Matching Percentage Chart
+        const ctxPercentage = document.getElementById('matchingPercentage').getContext('2d');
+        const percentageValue = 90; // Persentase kecocokan
+        new Chart(ctxPercentage, {
+            type: 'doughnut',
+            data: {
+                datasets: [{
+                    data: [percentageValue, 100 - percentageValue],
+                    backgroundColor: ['#6B21A8', '#E5E7EB'],
+                    borderWidth: 0,
+                }]
+            },
+            options: {
+                cutout: '80%',
+                plugins: {
+                    tooltip: { enabled: false },
+                },
+            }
+        });
+        document.getElementById('percentageText').innerText = percentageValue + '%';
+    
+        // Genre Match Charts
+        const genreDataUser1 = [25, 20, 15, 40]; // Genre distribusi untuk user1
+        const genreDataUser2 = [30, 25, 20, 25]; // Genre distribusi untuk user2
+    
+        const genreColors = ['#6B21A8', '#9D4EDD', '#B983FF', '#D8B4FE'];
+    
+        // Chart for User 1
+        const ctxUser1 = document.getElementById('genreChartUser1').getContext('2d');
+        new Chart(ctxUser1, {
+            type: 'pie',
+            data: {
+                labels: ['Pop', 'Rock', 'Jazz', 'Hip-Hop'],
+                datasets: [{
+                    data: genreDataUser1,
+                    backgroundColor: genreColors,
+                    hoverOffset: 4
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: { position: 'bottom' }
+            }
+        }
+        });
+    
+        // Chart for User 2
+        const ctxUser2 = document.getElementById('genreChartUser2').getContext('2d');
+        new Chart(ctxUser2, {
+            type: 'pie',
+            data: {
+                labels: ['Pop', 'Rock', 'Jazz', 'Hip-Hop'],
+                datasets: [{
+                    data: genreDataUser2,
+                    backgroundColor: genreColors,
+                    hoverOffset: 4
+                }]
+            },
+            options: {
+                plugins: {
+                    legend: { position: 'bottom' }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

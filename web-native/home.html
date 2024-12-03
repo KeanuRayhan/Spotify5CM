@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Spotify5CM</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 font-sans">
+  <!-- Navbar -->
+  <header class="bg-white shadow w-full">
+    <div class="container mx-auto px-4 py-4 flex items-center justify-between sm:py-2">
+      <!-- Logo -->
+      <div class="text-lg font-bold text-purple-600">SPOTIFY5CM</div>
+
+      <!-- Hamburger Icon -->
+      <button 
+          id="hamburgerButton" 
+          class="md:hidden text-purple-600 focus:outline-none"
+          aria-label="Toggle Navigation"
+      >
+          <!-- Icon -->
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+          </svg>
+      </button>
+
+      <!-- Navigation Menu -->
+      <nav 
+          id="navbarMenu" 
+          class="hidden flex flex-col md:flex md:flex-row md:space-x-4 absolute md:static top-16 left-0 w-full md:w-auto bg-white shadow-lg md:shadow-none px-4 py-4 md:px-0 space-y-4 md:space-y-0 z-10"
+      >
+          <a href="#" class="font-bold text-gray-400 hover:text-purple-900">Home</a>
+          <a href="#" class="font-bold text-gray-400 hover:text-purple-900">Top Popular Artist</a>
+          <a href="#" class="font-bold text-gray-400 hover:text-purple-900">Music Taste Matching</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="bg-gray-200 py-20">
+    <div class="container mx-auto flex flex-col lg:flex-row items-center">
+      <div class="flex-1 px-4 text-center lg:text-left">
+        <h1 class="text-4xl lg:text-6xl font-bold text-purple-900 mb-4">SPOTIFY<span class="text-purple-600">5CM</span></h1>
+        <p class="text-gray-900 text-base lg:text-lg mb-8">
+          SPOTIFY5CM is a fun web application for checking your music habits on Spotify!
+          Here, you can get cool insights about the popularity of artists in various regions and see who has similar musical tastes to you.
+        </p>
+        <button class="bg-purple-900 text-white font-bold text-lg px-6 py-3 rounded-3xl hover:bg-purple-700">
+          Getting Started
+        </button>
+      </div>
+      <div class="flex-1 self-center mt-8 lg:mt-0">
+        <img class="mx-auto w-1/2 lg:w-auto" src="src/img/Icon.png" alt="icon">
+      </div>
+    </div>
+  </section>
+  
+
+  <!-- Features Section -->
+  <!-- Music Taste Matching -->
+  <section class="bg-lime-400 flex flex-col lg:flex-row items-center shadow">
+    <div class="flex-1 p-4 lg:p-8 self-center">
+      <img class="mx-auto w-1/2 lg:w-auto" src="src/img/music-match-taste.png" alt="music-match-taste-icon">
+    </div>
+    <div class="flex-1 p-4 lg:p-8 text-center">
+      <h2 class="text-4xl font-bold text-purple-900 mb-4">Music Taste Matching</h2>
+      <p class="text-gray-900 text-base lg:text-lg mb-6">
+        Check how well your music tastes match those of other people and find song recommendations that match your preferences!
+      </p>
+      <button class="bg-purple-900 text-white font-bold text-lg px-6 py-3 rounded-3xl hover:bg-purple-700">
+        Try Now
+      </button>
+    </div>
+  </section>
+
+  <!-- Top Popular Artist -->
+  <section class="bg-purple-400 flex flex-col-reverse lg:flex-row items-center shadow">
+    <div class="flex-1 p-4 lg:p-8 text-center">
+      <h2 class="text-3xl lg:text-4xl font-bold text-purple-900 mb-4">Top Popular Artist</h2>
+      <p class="text-gray-900 text-base lg:text-lg mb-6">
+        Discover and know the popularity rankings of top artists from various countries and regions.
+      </p>
+      <button class="bg-purple-900 text-white font-bold text-lg px-6 py-3 rounded-3xl hover:bg-purple-700">
+        Try Now
+      </button>
+    </div>
+    <div class="flex-1 p-4 lg:p-8 self-center mt-2 lg:mt-0">
+      <img class="mx-auto w-1/2 lg:w-auto" src="src/img/top-popular-artist.png" alt="top-popular-artist-icon">
+    </div>
+  </section>
+
+  <!-- Integration Section -->
+  <section class="bg-gray-100 p-10">
+    <div class="container mx-auto p-10 text-center flex flex-col lg:flex-row items-center">
+      <div class="flex-1 p-8 self-end">
+        <img class="mx-auto w-72 rounded-lg shadow-xl" src="src/img/Rectangle 1.png" alt="person-listening-to-music-1">
+      </div>
+      <div class="flex-1 px-4 text-center">
+        <h2 class="text-2xl font-bold text-purple-900 mb-4">Integrated with</h2>
+        <img src="src/img/Spotify_Full_Logo_RGB_Black.png" alt="Spotify Logo" class="mx-auto w-96 mb-4 my-8">
+      </div>
+      <div class="flex-1 p-8 self-start mt-8 lg:mt-0">
+        <img class="mx-auto w-72 rounded-lg shadow-xl" src="src/img/Rectangle 2.png" alt="person-listening-to-music-2">
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-gray-800 text-white py-8">
+    <div class="container mx-auto flex flex-col md:flex-row items-center justify-between text-center md:text-left">
+      <div class="mx-auto md:mx-0 w-36">
+        <img src="src/img/Spotify_Full_Logo_RGB_Green.png" alt="Spotify Logo Green">
+      </div>
+      <div class="mt-4 md:mt-0">
+        <p>© 2024 Spotify5CM by Kelompok 5CM. All Rights Reserved</p>
+        <div class="mt-4 space-x-4">
+          <a href="#" class="text-gray-400 hover:text-white">Cookies</a>
+          <a href="#" class="text-gray-400 hover:text-white">Privacy and Policy</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Script Hamburger Navbar -->
+  <script>
+    // Toggle hamburger menu visibility
+    const hamburgerButton = document.getElementById('hamburgerButton');
+    const navbarMenu = document.getElementById('navbarMenu');
+
+    hamburgerButton.addEventListener('click', () => {
+        navbarMenu.classList.toggle('hidden');
+    });
+  </script>
+</body>
+</html>
