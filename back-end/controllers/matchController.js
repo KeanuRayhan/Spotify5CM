@@ -11,7 +11,7 @@ const { calculateGenreScores } = require('../utils/genreScore');
 const { generatePieChart } = require('../utils/genreChart');
 
 //jangan lupa ganti ke startMatching sesuai routes
-const startMatchingCli = async (userRequestUrl, userTargetUrl) => {
+const startMatching = async (userRequestUrl, userTargetUrl) => {
   const userRequestId = extractUserIdFromUrl(userRequestUrl);
   const userTargetId = extractUserIdFromUrl(userTargetUrl);
 
@@ -46,25 +46,25 @@ const startMatchingCli = async (userRequestUrl, userTargetUrl) => {
   const userRequestScores = calculateGenreScores(genreUserRequest);
   const userTargetScores = calculateGenreScores(genreUserTarget);
 
-  // await generatePieChart(userRequestScores);
-  // await generatePieChart(userTargetScores);
+  const imageRequest = await generatePieChart(userRequestScores);
+  const imageTarget = await generatePieChart(userTargetScores);
 
   const extractedKeys = Object.keys(userRequestScores.genrePercentages);
   const extractedKeys2 = Object.keys(userTargetScores.genrePercentages);
 
-  // const similarityScore = calculateSimilarityScore(Object(userRequestScores.genrePercentages),
-  //   Object(userTargetScores.genrePercentages), extractedKeys, extractedKeys2
-  // );
-  // const matchId = Math.random().toString(36).substring(2, 6).toUpperCase();
+  const similarityScore = calculateSimilarityScore(Object(userRequestScores.genrePercentages),
+    Object(userTargetScores.genrePercentages), extractedKeys, extractedKeys2
+  );
+  const matchId = Math.random().toString(36).substring(2, 6).toUpperCase();
 
-  // await saveMatchingResult({
-  //   matchId,
-  //   similarityScore,
-  //   userRequestId,
-  //   userTargetId,
-  //   userRequestScores: userRequestScores.genrePercentages,
-  //   userTargetScores: userTargetScores.genrePercentages,
-  // });
+  await saveMatchingResult({
+    matchId,
+    similarityScore,
+    userRequestId,
+    userTargetId,
+    userRequestScores: userRequestScores.genrePercentages,
+    userTargetScores: userTargetScores.genrePercentages,
+  });
 
   const sortedGenres = Object.entries(userRequestScores.genrePercentages)
     .sort((a, b) => b[1] - a[1]);
@@ -76,10 +76,9 @@ const startMatchingCli = async (userRequestUrl, userTargetUrl) => {
   const recommend = await getRecommendTracks(artistIdsRecommend);
   console.log(recommend)
 
-  //nanti kembaliin ke front end image pie chart 2, nilai similarity, array recommends track
-  // return `Matching Successful!\n`;
+  return imageRequest, imageTarget, similarityScore;
+  //kurang recommend
 };
 
-module.exports = { startMatchingCli };
+module.exports = { startMatching };
 
-//recommend musik jg dari genre aja
