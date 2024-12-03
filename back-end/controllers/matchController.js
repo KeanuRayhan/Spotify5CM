@@ -1,9 +1,16 @@
-const { fetchUserAndTracks, getUserData, getAudioFeatures } = require('../services/spotifyService');
+const { fetchUserAndTracks, getUserData, getAudioFeatures, getArtist } = require('../services/spotifyService');
 const { saveMatchingResult } = require('../services/matchService');
 const { calculateSimilarityScore } = require('../utils/cosineSimilarity');
 const { extractUserIdFromUrl } = require('../utils/urlUtil.js');
 const { calculateCentroid } = require('../utils/audioFeatures');
+const { getAllArtistIds, createArtist } = require('../services/artistService');
+const { checkArtists } = require('../controllers/artistController');
+const Artist = require('../models/Artist.js');
+const { getArtistGenre, getArtistsByGenres, getRecommendTracks } = require('../services/artistService');
+const { calculateGenreScores } = require('../utils/genreScore');
+const { generatePieChart } = require('../utils/genreChart');
 
+//jangan lupa ganti ke startMatching sesuai routes
 const startMatchingCli = async (userRequestUrl, userTargetUrl) => {
   const userRequestId = extractUserIdFromUrl(userRequestUrl);
   const userTargetId = extractUserIdFromUrl(userTargetUrl);
@@ -11,82 +18,68 @@ const startMatchingCli = async (userRequestUrl, userTargetUrl) => {
   const userRequestData = await getUserData(userRequestId);
   const userTargetData = await getUserData(userTargetId);
 
-  console.log(userRequestData);
-  console.log(userTargetData);
-
   if (!userRequestData || !userTargetData) {
     return 'Profil Not Valid';
   }
 
   const { userRequestTracks, userTargetTracks } = await fetchUserAndTracks(userRequestId, userTargetId);
-  console.log(userRequestTracks);
-  console.log(userTargetTracks);
   if (!userRequestTracks.length || !userTargetTracks.length) {
     return 'No Playlist Available';
   }
 
-  // const userRequestAudioFeature = await getAudioFeatures(userRequestTracks); 
-  // const userTargetAudioFeature = await getAudioFeatures(userTargetTracks);
+  const uniqueArtistIds = await getAllArtistIds(userRequestTracks);
+  const uniqueArtistIdsTarget = await getAllArtistIds(userTargetTracks);
+  const missingArtists = await checkArtists(uniqueArtistIds);
+  const missingArtistsTarget = await checkArtists(uniqueArtistIdsTarget);
 
-  // console.log('Audio Feature for Request Track:', userRequestAudioFeature);
-  // console.log('Audio Feature for Target Track:', userTargetAudioFeature);
+  if (missingArtists.length > 0 || missingArtistsTarget.length > 0) {
+    const newArtistData = await getArtist(missingArtists);
+    const newArtistDataTarget = await getArtist(missingArtistsTarget);
 
-  // const userRequestCentroid = calculateCentroid(userRequestAudioFeatures);
-  // const userTargetCentroid = calculateCentroid(userTargetAudioFeatures);
-  // console.log(userRequestCentroid);
-  // console.log(userTargetCentroid);
+    await createArtist(newArtistData);
+    await createArtist(newArtistDataTarget);
+  }
 
-  const userRequestAudioFeatures = [
-    {
-      acousticness: 1.00,
-      danceability: 0.943,
-      energy: 0.952,
-      instrumentalness: 1.00,
-      loudness: 4.573,
-      mode: 1,
-      speechiness: 0.613,
-      valence: 0.961,
-      tempo: 136.998,
-      time_signature: 4,
-      key: 2,
-      liveness: 1.00
-    }
-  ];
+  const genreUserRequest = await getArtistGenre(uniqueArtistIds);
+  const genreUserTarget = await getArtistGenre(uniqueArtistIdsTarget);
+
+  const userRequestScores = calculateGenreScores(genreUserRequest);
+  const userTargetScores = calculateGenreScores(genreUserTarget);
+
+  // await generatePieChart(userRequestScores);
+  // await generatePieChart(userTargetScores);
+
+  const extractedKeys = Object.keys(userRequestScores.genrePercentages);
+  const extractedKeys2 = Object.keys(userTargetScores.genrePercentages);
+
+  // const similarityScore = calculateSimilarityScore(Object(userRequestScores.genrePercentages),
+  //   Object(userTargetScores.genrePercentages), extractedKeys, extractedKeys2
+  // );
+  // const matchId = Math.random().toString(36).substring(2, 6).toUpperCase();
+
+  // await saveMatchingResult({
+  //   matchId,
+  //   similarityScore,
+  //   userRequestId,
+  //   userTargetId,
+  //   userRequestScores: userRequestScores.genrePercentages,
+  //   userTargetScores: userTargetScores.genrePercentages,
+  // });
+
+  const sortedGenres = Object.entries(userRequestScores.genrePercentages)
+    .sort((a, b) => b[1] - a[1]);
+  const topTwoGenres = sortedGenres.slice(0, 2).map(item => item[0]);
   
+  const artistIdsRecommend = await getArtistsByGenres(topTwoGenres);
+  console.log(artistIdsRecommend)
 
-  const userTargetAudioFeatures = [
-    {
-      acousticness: 0.058,
-      danceability: 0.059,
-      energy: 0.027,
-      instrumentalness: 0.001752,
-      loudness: -5.598,
-      mode: 0,
-      speechiness: 0.073,
-      valence: 0.088,
-      tempo: 60.932,
-      time_signature: 4,
-      key: 10,
-      liveness: 0.032
-    }
-  ];
+  const recommend = await getRecommendTracks(artistIdsRecommend);
+  console.log(recommend)
 
-  const userRequestCentroid = calculateCentroid(userRequestAudioFeatures);
-  const userTargetCentroid = calculateCentroid(userTargetAudioFeatures);
-
-  const similarityScore = calculateSimilarityScore(Object.values(userRequestCentroid),
-    Object.values(userTargetCentroid)
-  );
-  const matchId = Math.random().toString(36).substring(2, 6).toUpperCase();
-
-  await saveMatchingResult({
-    matchId,
-    similarityScore,
-    userRequestId,
-    userTargetId,
-  });
-
-  return `Matching Successful!\nMatch ID: ${matchId}\nSimilarity Score: ${similarityScore}`;
+  //nanti kembaliin ke front end image pie chart 2, nilai similarity, array recommends track
+  // return `Matching Successful!\n`;
 };
 
 module.exports = { startMatchingCli };
+
+//recommend musik jg dari genre aja
