@@ -12,28 +12,55 @@ const MusicTaste = () => {
 
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     // Validasi form kosong
     if (!spotifyId.trim() || !otherSpotifyId.trim()) {
-      setPopupMessage("Fields cannot be empty.");
-      setShowPopup(true);
+      // setPopupMessage("Fields cannot be empty.");
+      // setShowPopup(true);
       return;
     }
 
-    // Simulasi validasi Spotify ID
-    if (spotifyId === "no_playlist" || otherSpotifyId === "no_playlist") {
-      setPopupMessage("No playlist available");
-      setShowPopup(true);
-    } else if (spotifyId === "invalid_id" || otherSpotifyId === "invalid_id") {
-      setPopupMessage("User was not found");
-      setShowPopup(true);
-    } else {
-      setShowPopup(false);
+    try {
+      const response = await fetch('/api/match', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          userRequestUrl: spotifyId,
+          userTargetUrl: otherSpotifyId,
+        }),
+      });
 
-      navigate("/match-taste-result");
+      console.log(response.data);
+
+      const data = await response.json();
+      console.log('Response data:', data);
+
+      if (data.success) {
+        // Navigasi ke halaman hasil
+        navigate('/match-taste-result', { state: data });
+      } else {
+        setPopupMessage(data.message || "Error occurred.");
+        setShowPopup(true);
+      }
+    } catch (error) {
+      setPopupMessage("Failed to connect to the server.");
+      setShowPopup(true);
     }
+
+    // Simulasi validasi Spotify ID
+    // if (spotifyId === "no_playlist" || otherSpotifyId === "no_playlist") {
+    //   setPopupMessage("No playlist available");
+    //   setShowPopup(true);
+    // } else if (spotifyId === "invalid_id" || otherSpotifyId === "invalid_id") {
+    //   setPopupMessage("User was not found");
+    //   setShowPopup(true);
+    // } else {
+    //   setShowPopup(false);
+
+    //   navigate("/match-taste-result");
+    // }
   };
 
   const handleClosePopup = () => {

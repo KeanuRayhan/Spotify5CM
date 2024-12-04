@@ -1,27 +1,48 @@
 import React, {useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import Chart from "chart.js/auto";
+import path from 'path';
 
 import Avatar from "../assets/img/avatar.png";
 
 export default function MatchTasteResult() {
+    const location = useLocation();
+    const navigate = useNavigate();
+
+    // Mengambil data dari state yang dikirimkan melalui navigate
+    const {
+        imageRequest,
+        imageTarget,
+        similarityScore,
+        userRequestData = {},
+        userTargetData = {},
+    } = location.state || {};
+
+    console.log('Location state:', location.state);
+
     const matchingPercentageRef = React.useRef(null);
     const genreChartUser1Ref = React.useRef(null);
     const genreChartUser2Ref = React.useRef(null);
 
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
 
     useEffect(() => {
+        // Jika data tidak ada, tampilkan pesan error
+        if (!imageRequest || !imageTarget || similarityScore === undefined) {
+            return;
+        }
+
         // Function to create charts
         const createChart = (ctx, type, data, options) => new Chart(ctx, { type, data, options });
 
         // Matching Percentage Chart
         const ctxPercentage = matchingPercentageRef.current.getContext("2d");
-        const percentageValue = 90; // Persentase kecocokan
+        // const percentageValue = 90; // Persentase kecocokan
         const percentageChart = createChart(ctxPercentage, "doughnut", {
             datasets: [
                 {
-                    data: [percentageValue, 100 - percentageValue],
+                    data: [similarityScore, 100 - similarityScore],
                     backgroundColor: ["#6B21A8", "#E5E7EB"],
                     borderWidth: 0,
                 },
@@ -30,50 +51,61 @@ export default function MatchTasteResult() {
             cutout: "80%",
             plugins: { tooltip: { enabled: false } },
         });
-        document.getElementById("percentageText").innerText = `${percentageValue}%`;
+        document.getElementById("percentageText").innerText = `${similarityScore}%`;
 
         // Genre Match Charts
-        const genreDataUser1 = [25, 20, 15, 40];
-        const genreDataUser2 = [30, 25, 20, 25];
-        const genreColors = ["#6B21A8", "#9D4EDD", "#B983FF", "#D8B4FE"];
+        // const genreDataUser1 = [25, 20, 15, 40];
+        // const genreDataUser2 = [30, 25, 20, 25];
+        // const genreColors = ["#6B21A8", "#9D4EDD", "#B983FF", "#D8B4FE"];
 
-        const ctxUser1 = genreChartUser1Ref.current.getContext("2d");
-        const user1Chart = createChart(ctxUser1, "pie", {
-            labels: ["Pop", "Rock", "Jazz", "Hip-Hop"],
-            datasets: [
-                {
-                    data: genreDataUser1,
-                    backgroundColor: genreColors,
-                    hoverOffset: 4,
-                },
-            ],
-        }, {
-            responsive: true,
-            plugins: { legend: { position: "bottom" } },
-        });
+        // const ctxUser1 = genreChartUser1Ref.current.getContext("2d");
+        // const user1Chart = createChart(ctxUser1, "pie", {
+        //     // labels: ["Pop", "Rock", "Jazz", "Hip-Hop"],
+        //     labels: Object.keys(userRequestData.genres || {}),
+        //     datasets: [
+        //         {
+        //             // data: genreDataUser1,
+        //             data: Object.values(userRequestData.genres || {}),
+        //             backgroundColor: genreColors,
+        //             hoverOffset: 4,
+        //         },
+        //     ],
+        // }, {
+        //     responsive: true,
+        //     plugins: { legend: { position: "bottom" } },
+        // });
 
-        const ctxUser2 = genreChartUser2Ref.current.getContext("2d");
-        const user2Chart = createChart(ctxUser2, "pie", {
-            labels: ["Pop", "Rock", "Jazz", "Hip-Hop"],
-            datasets: [
-                {
-                    data: genreDataUser2,
-                    backgroundColor: genreColors,
-                    hoverOffset: 4,
-                },
-            ],
-        }, {
-            responsive: true,
-            plugins: { legend: { position: "bottom" } },
-        });
+        // const ctxUser2 = genreChartUser2Ref.current.getContext("2d");
+        // const user2Chart = createChart(ctxUser2, "pie", {
+        //     // labels: ["Pop", "Rock", "Jazz", "Hip-Hop"],
+        //     labels: Object.keys(userTargetData.genres || {}),
+        //     datasets: [
+        //         {
+        //             // data: genreDataUser2,
+        //             data: Object.values(userTargetData.genres || {}),
+        //             backgroundColor: genreColors,
+        //             hoverOffset: 4,
+        //         },
+        //     ],
+        // }, {
+        //     responsive: true,
+        //     plugins: { legend: { position: "bottom" } },
+        // });
 
         // Cleanup charts on unmount
         return () => {
             percentageChart.destroy();
-            user1Chart.destroy();
-            user2Chart.destroy();
+            // user1Chart.destroy();
+            // user2Chart.destroy();
         };
-    }, []);
+    }, [similarityScore, userRequestData, userTargetData]);
+
+    // Ubah jalur file lokal menjadi URL yang dapat diakses
+    const imageRequestUrl = `http://localhost:3000/assets/${imageRequest.split('\\').pop().split('/').pop()}`;
+    console.log(imageRequestUrl);
+
+    const imageTargetUrl = `http://localhost:3000/assets/${imageTarget.split('\\').pop().split('/').pop()}`;
+    console.log(imageTargetUrl);
 
     return (
         <div className="bg-gray-100 font-sans">
@@ -85,10 +117,10 @@ export default function MatchTasteResult() {
                         <div className="w-1/4">
                             <img
                                 className="mx-auto w-52 rounded-full"
-                                src={Avatar}
+                                src={userRequestData.images}
                                 alt="User 1"
                             />
-                            <p className="mt-4 text-lg font-semibold">rere.fps</p>
+                            <p className="mt-4 text-lg font-semibold">{userRequestData.display_name}</p>
                         </div>
                         <div className="w-1/4">
                             <div className="relative">
@@ -102,10 +134,10 @@ export default function MatchTasteResult() {
                         <div className="w-1/4">
                             <img
                                 className="mx-auto w-52 rounded-full"
-                                src={Avatar}
+                                src={userTargetData.images}
                                 alt="User 2"
                             />
-                            <p className="mt-4 text-lg font-semibold">meureun</p>
+                            <p className="mt-4 text-lg font-semibold">{userTargetData.display_name}</p>
                         </div>
                     </div>
 
@@ -122,18 +154,26 @@ export default function MatchTasteResult() {
                     {/* Genre Match */}
                     <div className="flex flex-row justify-around gap-8 mb-12">
                         <div className="w-2/5">
-                            <h3 className="text-xl font-semibold text-purple-900 mb-4">rere.fps</h3>
-                            <canvas ref={genreChartUser1Ref}></canvas>
+                            <h3 className="text-xl font-semibold text-purple-900 mb-4">{userRequestData.display_name}</h3>
+                            {/* <canvas ref={genreChartUser1Ref}></canvas> */}
 
-                            {/* KALO PIE CHART MAU PAKE GAMBAR */}
-                            {/* <img src="" alt="" /> */}
+                            {imageRequest ? (
+                                <img src={imageRequestUrl} alt="Pie Chart User" />
+                            ) : (
+                                <div>No image available</div>
+                            )}
                         </div>
                         <div className="w-2/5">
-                            <h3 className="text-xl font-semibold text-purple-900 mb-4">meureun</h3>
-                            <canvas ref={genreChartUser2Ref}></canvas>
+                            <h3 className="text-xl font-semibold text-purple-900 mb-4">{userTargetData.display_name}</h3>
+                            {/* <canvas ref={genreChartUser2Ref}></canvas> */}
 
                             {/* KALO PIE CHART MAU PAKE GAMBAR */}
-                            {/* <img src="" alt="" /> */}
+                            {/* <img src={imageTarget} alt="Pie Chart Target User" /> */}
+                            {imageTarget ? (
+                                <img src={imageTargetUrl} alt="Pie Chart Target User" />
+                            ) : (
+                                <div>No image available</div>
+                            )}
                         </div>
                     </div>
 
