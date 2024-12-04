@@ -18,7 +18,7 @@ const checkArtists = async (artistsFetch) => {
   }
 };
 
-module.exports = { checkArtists };
+
 // Import model Artist
 const Artist = require('../models/Artist');
 // Fungsi untuk mendapatkan artist berdasarkan artist_score (60% monthly_listener, 40% popularity)
@@ -69,5 +69,5 @@ const startgetartistPopularity = async (req, res) => {
     }
   };
   
-  module.exports = { startgetartistPopularity };
+  module.exports = { startgetartistPopularity, checkArtist };
   
