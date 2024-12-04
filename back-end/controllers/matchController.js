@@ -10,7 +10,6 @@ const { getArtistGenre, getArtistsByGenres, getRecommendTracks } = require('../s
 const { calculateGenreScores } = require('../utils/genreScore');
 const { generatePieChart } = require('../utils/genreChart');
 
-//jangan lupa ganti ke startMatching sesuai routes
 const startMatching = async (userRequestUrl, userTargetUrl) => {
   const userRequestId = extractUserIdFromUrl(userRequestUrl);
   const userTargetId = extractUserIdFromUrl(userTargetUrl);
@@ -19,12 +18,12 @@ const startMatching = async (userRequestUrl, userTargetUrl) => {
   const userTargetData = await getUserData(userTargetId);
 
   if (!userRequestData || !userTargetData) {
-    return 'Profil Not Valid';
+    return 201;
   }
 
   const { userRequestTracks, userTargetTracks } = await fetchUserAndTracks(userRequestId, userTargetId);
   if (!userRequestTracks.length || !userTargetTracks.length) {
-    return 'No Playlist Available';
+    return 202;
   }
 
   const uniqueArtistIds = await getAllArtistIds(userRequestTracks);
@@ -76,7 +75,7 @@ const startMatching = async (userRequestUrl, userTargetUrl) => {
   const recommend = await getRecommendTracks(artistIdsRecommend);
   console.log(recommend)
 
-  return imageRequest, imageTarget, similarityScore;
+  return imageRequest, imageTarget, similarityScore, userRequestData, userTargetData;
   //kurang recommend
 };
 
