@@ -1,6 +1,40 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
 export default function ArtistPopularity() {
+    const [artists, setArtists] = useState([]);
+    const [region, setRegion] = useState('');
+    const [country, setCountry] = useState(''); 
+
+    // Fungsi untuk mengambil data dari backend dengan filter
+    const fetchArtists = async () => { 
+        try {
+            const response = await axios.get('/apidua/artists/popularity', {
+                params: { region, country }, // Mengirim query parameter
+            });
+            setArtists(response.data);
+        } catch (error) {
+            console.error("Error fetching artists:", error);
+        }
+    };
+
+    // useEffect untuk mengambil data dari backend setiap kali filter berubah
+    useEffect(() => { 
+        fetchArtists();
+    }, [region, country]); //  Memantau perubahan region dan country
+
+    // Event handler untuk region
+    const handleRegionChange = (e) => {
+        setRegion(e.target.value);
+        setCountry(''); // Reset country ke default saat region berubah
+    };
+
+    // Event handler untuk country
+    const handleCountryChange = (e) => {
+        setCountry(e.target.value);
+        setRegion(''); // Reset region ke default saat country berubah
+    };
+
     return (
         <div className="mb-4 mt-4">
             <div className="flex">
@@ -9,23 +43,41 @@ export default function ArtistPopularity() {
                     <p className="text-sm text-slate-700 font-bold">You can pick artist popularity by region or country—no need to stick to regions when choosing a country.</p>
                     <div className="flex space-x-4 mt-4">
                         <div className="w-1/2">
-                            <label for="continent" className="block text-m font-bold text-black">Region</label>
-                            <select id="continent" className="mt-1 block w-full bg-violet-900 text-white font-bold px-4 py-2 rounded-full shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-indigo-600">
+                            <label htmlFor="continent" className="block text-m font-bold text-black">Region</label>
+                            <select
+                                id="continent"
+                                className="mt-1 block w-full bg-violet-900 text-white font-bold px-4 py-2 rounded-full shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-indigo-600"
+                                value={region} // Menghubungkan state region
+                                onChange={handleRegionChange} // Mengubah state region
+                            >
                                 <option value="">Select Region</option>
-                                <option value="Asia">Asia</option>
-                                <option value="Europe">Europe</option>
-                                <option value="America">America</option>
-                                <option value="Africa">Africa</option>
+                                <option value="Asia Tenggara">Asia Tenggara</option>
+                                <option value="Eropa">Eropa</option>
+                                <option value="Amerika">Amerika</option>
+                                <option value="Asia Timur">Asia Timur</option>
                             </select>
                         </div>
                         <div className="w-1/2">
-                            <label for="country" className="block text-m font-bold text-black">Country</label>
-                            <select id="country" className="mt-1 block w-full bg-violet-900 text-white font-bold px-4 py-2 rounded-full shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-indigo-600">
+                            <label htmlFor="country" className="block text-m font-bold text-black">Country</label>
+                            <select
+                                id="country"
+                                className="mt-1 block w-full bg-violet-900 text-white font-bold px-4 py-2 rounded-full shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-indigo-600"
+                                value={country} //  Menghubungkan state country
+                                onChange={handleCountryChange} //  Mengubah state country
+                            >
                                 <option value="">Select Country</option>
-                                <option value="USA">USA</option>
-                                <option value="UK">UK</option>
-                                <option value="Brazil">Brazil</option>
+                                <option value="Amerika Serikat">Amerika Serikat</option>
+                                <option value="Jepang">Jepang</option>
+                                <option value="Korea Selatan">Korea Selatan</option>
+                                <option value="Philippines">Filipina</option>
+                                <option value="Malaysia">Malaysia</option>
                                 <option value="Indonesia">Indonesia</option>
+                                <option value="Singapura">Singapura</option>
+                                <option value="Inggris">Inggris</option>
+                                <option value="Belanda">Belanda</option>
+                                <option value="Perancis">Perancis</option>
+                                <option value="Spanyol">Spanyol</option>
+                                <option value="Denmark">Denmark</option>
                             </select>
                         </div>
                     </div>
@@ -50,126 +102,20 @@ export default function ArtistPopularity() {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr className="bg-blue-950">
-                            <td className="px-4 py-2">1</td>
-                            <td className="px-4 py-2">
-                                <div className="flex items-center space-x-2">
-                                    <img className="w-12 h-12 rounded-lg" src="https://i.scdn.co/image/ab67616d00001e02ff9ca10b55ce82ae553c8228" alt="album-cover" />
-                                    <span>Bruno Mars</span>
-                                </div>
-                            </td>
-                            <td className="px-4 py-2">23423423432</td>
-                            <td className="px-4 py-2">80</td>
-                            <td className="px-4 py-2">100</td>
-                        </tr>
-                        <tr className="bg-indigo-950">
-                            <td className="px-4 py-2">2</td>
-                            <td className="px-4 py-2">
-                                <div className="flex items-center space-x-2">
-                                    <img className="w-12 h-12 rounded-lg" src="https://i.scdn.co/image/ab67616d00001e02ff9ca10b55ce82ae553c8228" alt="album-cover" />
-                                    <span>Ariana Grande</span>
-                                </div>  
-                            </td>
-                            <td className="px-4 py-2">24234535</td>
-                            <td className="px-4 py-2">78</td>
-                            <td className="px-4 py-2">89,90</td>
-                        </tr>
-                        <tr className="bg-blue-950">
-                            <td className="px-4 py-2">3</td>
-                            <td className="px-4 py-2">
-                                <div className="flex items-center space-x-2">
-                                    <img className="w-12 h-12 rounded-lg" src="https://i.scdn.co/image/ab67616d00001e02ff9ca10b55ce82ae553c8228" alt="album-cover" />
-                                    <span>Imagine Dragon</span>
-                                </div>
-                            </td>
-                            <td className="px-4 py-2">123123123</td>
-                            <td className="px-4 py-2">88</td>
-                            <td className="px-4 py-2">77</td>
-                        </tr>
-                        <tr className="bg-indigo-950">
-                            <td className="px-4 py-2">4</td>
-                            <td className="px-4 py-2">
-                                <div className="flex items-center space-x-2">
-                                    <img className="w-12 h-12 rounded-lg" src="https://i.scdn.co/image/ab67616d00001e02ff9ca10b55ce82ae553c8228" alt="album-cover" />
-                                    <span>Ed-Sheeran</span>
-                                </div>
-                            </td>
-                            <td className="px-4 py-2">213342</td>
-                            <td className="px-4 py-2">99</td>
-                            <td className="px-4 py-2">89</td>
-                        </tr>
-                        <tr className="bg-blue-950">
-                            <td className="px-4 py-2">5</td>
-                            <td className="px-4 py-2">
-                                <div className="flex items-center space-x-2">
-                                    <img className="w-12 h-12 rounded-lg" src="https://i.scdn.co/image/ab67616d00001e02ff9ca10b55ce82ae553c8228" alt="album-cover" />
-                                    <span>Pamungkas</span>
-                                </div>
-                            </td>
-                            <td className="px-4 py-2">213332423</td>
-                            <td className="px-4 py-2">90</td>
-                            <td className="px-4 py-2">88</td>
-                        </tr>
-                        <tr className="bg-indigo-950">
-                            <td className="px-4 py-2">6</td>
-                            <td className="px-4 py-2">
-                                <div className="flex items-center space-x-2">
-                                    <img className="w-12 h-12 rounded-lg" src="https://i.scdn.co/image/ab67616d00001e02ff9ca10b55ce82ae553c8228" alt="album-cover" />
-                                    <span>Bruno Major</span>
-                                </div>
-                            </td>
-                            <td className="px-4 py-2">23423423432</td>
-                            <td className="px-4 py-2">80</td>
-                            <td className="px-4 py-2">100</td>
-                        </tr>
-                        <tr className="bg-blue-950">
-                            <td className="px-4 py-2">7</td>
-                            <td className="px-4 py-2">
-                                <div className="flex items-center space-x-2">
-                                    <img className="w-12 h-12 rounded-lg" src="https://i.scdn.co/image/ab67616d00001e02ff9ca10b55ce82ae553c8228" alt="album-cover" />
-                                    <span>Kotak</span>
-                                </div>
-                            </td>
-                            <td className="px-4 py-2">24234535</td>
-                            <td className="px-4 py-2">78</td>
-                            <td className="px-4 py-2">89,90</td>
-                        </tr>
-                        <tr className="bg-indigo-950">
-                            <td className="px-4 py-2">8</td>
-                            <td className="px-4 py-2">
-                            <div className="flex items-center space-x-2">
-                                <img className="w-12 h-12 rounded-lg" src="https://i.scdn.co/image/ab67616d00001e02ff9ca10b55ce82ae553c8228" alt="album-cover" />
-                                <span>Noah</span>
-                            </div>
-                            </td>
-                            <td className="px-4 py-2">123123123</td>
-                            <td className="px-4 py-2">88</td>
-                            <td className="px-4 py-2">77</td>
-                        </tr>
-                        <tr className="bg-blue-950">
-                            <td className="px-4 py-2">9</td>
-                            <td className="px-4 py-2">
-                                <div className="flex items-center space-x-2">
-                                    <img className="w-12 h-12 rounded-lg" src="https://i.scdn.co/image/ab67616d00001e02ff9ca10b55ce82ae553c8228" alt="album-cover" />
-                                    <span>Geisha</span>
-                                </div>
-                            </td>
-                            <td className="px-4 py-2">213342</td>
-                            <td className="px-4 py-2">99</td>
-                            <td className="px-4 py-2">89</td>
-                        </tr>
-                        <tr className="bg-indigo-950">
-                            <td className="px-4 py-2">10</td>
-                            <td className="px-4 py-2">
-                                <div className="flex items-center space-x-2">
-                                    <img className="w-12 h-12 rounded-lg" src="https://i.scdn.co/image/ab67616d00001e02ff9ca10b55ce82ae553c8228" alt="album-cover" />
-                                    <span>Changcuters</span>
-                                </div>
-                            </td>
-                            <td className="px-4 py-2">213332423</td>
-                            <td className="px-4 py-2">90</td>
-                            <td className="px-4 py-2">88</td>
-                        </tr>
+                        {artists.map((artist, index) => (
+                            <tr key={artist.id} className={index % 2 === 0 ? "bg-blue-950" : "bg-indigo-950"}>
+                                <td className="px-4 py-2">{index + 1}</td>
+                                <td className="px-4 py-2">
+                                    <div className="flex items-center space-x-2">
+                                        <img className="w-12 h-12 rounded-lg" src={artist.images} alt="album-cover" />
+                                        <span>{artist.artist_name}</span>
+                                    </div>
+                                </td>
+                                <td className="px-4 py-2">{artist.monthly_listener}</td>
+                                <td className="px-4 py-2">{artist.popularity}</td>
+                                <td className="px-4 py-2">{artist.artist_score}</td>
+                            </tr>
+                        ))}
                     </tbody>
                 </table>
             </div>

@@ -11,6 +11,11 @@ export default defineConfig({
         changeOrigin: true,
         secure: false,
       },
+      '/apidua': {
+        target: 'http://localhost:3000', // Proxy untuk rute /apidua
+        changeOrigin: true,
+        secure: false,
+      },
     },
   },
 });
