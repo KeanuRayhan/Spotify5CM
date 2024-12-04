@@ -2,9 +2,15 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <link rel="icon" type="image/png" href="src/assets/img/5cm-bg.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + React</title>
+    <title>Spotify 5CM</title>
+    <script>
+      // Redirect ke /home jika path saat ini adalah /
+      if (window.location.pathname === '/') {
+        window.location.replace('/home');
+      }
+    </script>
   </head>
   <body>
     <div id="root"></div>

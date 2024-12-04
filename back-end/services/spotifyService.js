@@ -97,6 +97,65 @@ const getAudioFeatures = async (trackId) => {
   }
 };
 
+const getArtistId = async (trackId) => {
+  const accessToken = await getAccessToken();
+  try {
+      const response = await axios.get(`https://api.spotify.com/v1/tracks/${trackId}`, {
+          headers: { 'Authorization': `Bearer ${accessToken}` },
+      });
+      if (response.status === 200) {
+          return response.data.artists[0].id; 
+      } else {
+          console.error("Error: Unexpected status code", response.status);
+          return {};
+      }
+  } catch (error) {
+      console.error("Error fetching artist id:", error.message);
+      return {};
+  }
+}
+
+const getArtist = async (artistIds) => {
+  const accessToken = await getAccessToken();
+  try {
+    // Lakukan request untuk setiap artistId dalam array
+    const artistData = await Promise.all(
+      artistIds.map(async (artistId) => {
+        try {
+          const response = await axios.get(`https://api.spotify.com/v1/artists/${artistId}`, {
+            headers: { 'Authorization': `Bearer ${accessToken}` },
+          });
+          if (response.status === 200) {
+            const artist_data = response.data;
+            return {
+              popularity: artist_data.popularity,
+              followers: artist_data.followers?.total,
+              url_profile: artist_data.external_urls?.spotify,
+              genres: artist_data.genres?.join(", "),  
+              images: artist_data.images?.[0]?.url || null,
+              artist_id: artist_data.id,
+              monthly_listeners: null,
+              artist_name: artist_data.name,
+            };
+          } else {
+            console.error("Error fetching artist:", response.status);
+            return null; // Return null if error in fetching specific artist
+          }
+        } catch (error) {
+          console.error("Error fetching artist:", error.message);
+          return null; // Return null if there's an error for a specific artist
+        }
+      })
+    );
+    
+    // Filter out null values if some artists were not found
+    return artistData.filter(artist => artist !== null);
+  } catch (error) {
+    console.error('Error fetching artists:', error.message);
+    return [];
+  }
+};
+
 
 module.exports = {
   getUserData,
@@ -106,4 +165,6 @@ module.exports = {
   fetchSpotifyData,
   fetchUserAndTracks,
   getAudioFeatures,
+  getArtistId,
+  getArtist
 };
