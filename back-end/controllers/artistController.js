@@ -69,5 +69,5 @@ const startgetartistPopularity = async (req, res) => {
     }
   };
   
-  module.exports = { startgetartistPopularity, checkArtist };
+  module.exports = { startgetartistPopularity, checkArtists };
   
