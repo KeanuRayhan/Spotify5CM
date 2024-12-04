@@ -8,7 +8,6 @@ import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import ScrollToTop from './components/ScrollToTop';
 
-import Test from './pages/test'
 import Home from './pages/Home'
 import ArtistPopularity from './pages/ArtistPopularity';
 import MatchTasteResult from './pages/MatchTasteResult';

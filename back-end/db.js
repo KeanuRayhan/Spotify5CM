@@ -5,7 +5,6 @@ const connectDB = async () => {
     const conn = await mongoose.connect('mongodb://localhost:27017/Spotify5CM', {
       useNewUrlParser: true,
       useUnifiedTopology: true,
-      serverSelectionTimeoutMS: 30000,
     });
     console.log(`MongoDB Connected: ${conn.connection.host}`);
   } catch (error) {
