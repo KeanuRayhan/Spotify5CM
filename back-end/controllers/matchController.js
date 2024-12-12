@@ -32,6 +32,7 @@ const startMatching = async (req, res) => {
 
       const imageRequest = await generatePieChartV2(userRequestScores);
       const imageTarget = await generatePieChartV2(userTargetScores);
+      console.log('Previous match found:', previousMatch);
 
       const sortedGenres = Array.from(userRequestScores).map(([key, value]) => [key, value])
         .sort((a, b) => b[1] - a[1]);
