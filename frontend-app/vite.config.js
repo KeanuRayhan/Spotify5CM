@@ -4,5 +4,18 @@ import react from '@vitejs/plugin-react-swc'
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
-  // base: '/home',
-})
+  server: {
+    proxy: {
+      '/api': {
+        target: 'http://localhost:3000', // Alamat backend
+        changeOrigin: true,
+        secure: false,
+      },
+      '/apidua': {
+        target: 'http://localhost:3000', // Proxy untuk rute /apidua
+        changeOrigin: true,
+        secure: false,
+      },
+    },
+  },
+});
