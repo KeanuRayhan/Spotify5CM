@@ -4,13 +4,13 @@ const fs = require('fs');
 const crypto = require('crypto');
 const ChartDataLabels = require('chartjs-plugin-datalabels'); 
 
-const generatePieChart = async (genreScore) => {
+const generatePieChartV2 = async (genreScore) => {
   const width = 400;
   const height = 400;
   const chartJSNodeCanvas = new ChartJSNodeCanvas({ width, height, plugins: [ChartDataLabels] }); 
 
-  const userRequestLabels = Object.keys(genreScore.genrePercentages);
-  const userRequestData = Object.values(genreScore.genrePercentages);
+  const userRequestLabels = Array.from(genreScore.keys());
+  const userRequestData = Array.from(genreScore.values());  
 
   const chartConfig = {
     type: 'pie',
@@ -57,4 +57,4 @@ const generatePieChart = async (genreScore) => {
   return imagePath;
 };
 
-module.exports = { generatePieChart };
+module.exports = { generatePieChartV2 };
