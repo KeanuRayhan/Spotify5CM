@@ -146,40 +146,69 @@ export default function ArtistPopularity() {
                 <div className="flex justify-center mt-4 space-x-2 items-center">
                     <button
                         onClick={() => setCurrentPage(1)}
-                        className="px-4 py-2 rounded font-bold text-white bg-indigo-500 hover:bg-indigo-700"
+                        className="px-4 py-2 rounded font-bold text-white bg-indigo-500 hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed"
                         disabled={currentPage === 1}
+                        aria-label="First page"
                     >
                         {"<<"}
                     </button>
                     <button
-                        onClick={prevPage}
-                        className="px-4 py-2 rounded font-bold text-white bg-indigo-500 hover:bg-indigo-700"
+                        onClick={() => setCurrentPage(currentPage - 1)}
+                        className="px-4 py-2 rounded font-bold text-white bg-indigo-500 hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed"
                         disabled={currentPage === 1}
+                        aria-label="Previous page"
                     >
                         {"<"}
                     </button>
-                    <div className="flex space-x-2">
-                        {Array.from({ length: totalPages }, (_, i) => (
+                    <div className="flex items-center space-x-2">
+                        {currentPage > 3 && (
                             <button
-                                key={i}
-                                onClick={() => paginate(i + 1)}
-                                className={`px-4 py-2 rounded font-bold text-white ${currentPage === i + 1 ? 'bg-indigo-700' : 'bg-indigo-500'} hover:bg-indigo-700`}
+                                onClick={() => setCurrentPage(1)}
+                                className="px-4 py-2 rounded font-bold text-white bg-indigo-500 hover:bg-indigo-700"
                             >
-                                {i + 1}
+                                1
                             </button>
-                        ))}
+                        )}
+                        {currentPage > 3 && <span className="text-gray-500">...</span>}
+                        
+                        {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
+                            const page = Math.max(1, Math.min(totalPages - 4, currentPage - 2) + i);
+                            return (
+                                <button
+                                    key={page}
+                                    onClick={() => setCurrentPage(page)}
+                                    className={`px-4 py-2 rounded font-bold text-white ${
+                                        currentPage === page ? 'bg-indigo-700' : 'bg-indigo-500'
+                                    } hover:bg-indigo-700`}
+                                >
+                                    {page}
+                                </button>
+                            );
+                        })}
+                        
+                        {currentPage < totalPages - 2 && <span className="text-gray-500">...</span>}
+                        {currentPage < totalPages - 2 && (
+                            <button
+                                onClick={() => setCurrentPage(totalPages)}
+                                className="px-4 py-2 rounded font-bold text-white bg-indigo-500 hover:bg-indigo-700"
+                            >
+                                {totalPages}
+                            </button>
+                        )}
                     </div>
                     <button
-                        onClick={nextPage}
-                        className="px-4 py-2 rounded font-bold text-white bg-indigo-500 hover:bg-indigo-700"
+                        onClick={() => setCurrentPage(currentPage + 1)}
+                        className="px-4 py-2 rounded font-bold text-white bg-indigo-500 hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed"
                         disabled={currentPage === totalPages}
+                        aria-label="Next page"
                     >
                         {">"}
                     </button>
                     <button
                         onClick={() => setCurrentPage(totalPages)}
-                        className="px-4 py-2 rounded font-bold text-white bg-indigo-500 hover:bg-indigo-700"
+                        className="px-4 py-2 rounded font-bold text-white bg-indigo-500 hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed"
                         disabled={currentPage === totalPages}
+                        aria-label="Last page"
                     >
                         {">>"}
                     </button>

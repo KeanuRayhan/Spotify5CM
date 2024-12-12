@@ -17,6 +17,7 @@ export default function MatchTasteResult() {
         similarityScore,
         userRequestData = {},
         userTargetData = {},
+        combinedResults,
     } = location.state || {};
 
     console.log('Location state:', location.state);
@@ -192,7 +193,20 @@ export default function MatchTasteResult() {
                                 </tr>
                             </thead>
                             <tbody>
-                                {/* Table Rows */}
+                                {combinedResults.map((song, index) => (
+                                    <tr key={song.artist_id} className={index % 2 === 0 ? "bg-blue-950" : "bg-indigo-950"}>
+                                        <td className="px-4 py-2">{index + 1}</td>
+                                        <td className="px-4 py-2">
+                                            <div className="flex items-center space-x-2">
+                                                <img className="w-12 h-12 rounded-lg" src={song.images} alt="album-cover" />
+                                                <span>{song.track_name}</span>
+                                            </div>
+                                        </td>
+                                        <td className="px-4 py-2">{song.artist_name}</td>
+                                        <td className="px-4 py-2">{song.duration_ms}</td>
+                                    </tr>
+                                ))}
+                                {/* Table Rows
                                 <tr className="bg-blue-950">
                                     <td className="px-4 py-2">1</td>
                                     <td className="px-4 py-2">
@@ -247,7 +261,7 @@ export default function MatchTasteResult() {
                                     </td>
                                     <td className="px-4 py-2">The Weekend</td>
                                     <td className="px-4 py-2">03:38</td>
-                                </tr>
+                                </tr> */}
                             </tbody>
                         </table>
                     </div>
